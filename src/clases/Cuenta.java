@@ -61,7 +61,7 @@ public class Cuenta {
    public double actualizar(){
    double intediario, saldonuevo;
    intediario=this.interes/365;
-   saldonuevo=this.saldo+(intediario*this.saldo);
+   saldonuevo=this.saldo+(intediario*this.saldo)/100;
    return saldonuevo;
    } 
    public double retirar(int retiro  ){
