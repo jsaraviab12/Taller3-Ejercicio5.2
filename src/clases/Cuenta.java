@@ -5,6 +5,8 @@
  */
 package clases;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Jesus
@@ -42,7 +44,7 @@ public class Cuenta {
         return saldo;
     }
 
-    public void setSaldo(int saldo) {
+    public void setSaldo(double saldo) {
         this.saldo = saldo;
     }
 
@@ -64,11 +66,12 @@ public class Cuenta {
    saldonuevo=this.saldo+(intediario*this.saldo)/100;
    return saldonuevo;
    } 
-   public double retirar(int retiro  ){
+   public double retirar(double retiro  ){
    double res;
    
    if(this.saldo<retiro){
-   res = 0;
+   res = saldo;
+       
    }else{
   
    res =this.saldo=this.saldo-retiro; ;   

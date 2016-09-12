@@ -97,6 +97,11 @@ public class Principal extends javax.swing.JFrame {
         jPanel3.add(cmdIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
 
         cmdRetirar.setText("Retirar");
+        cmdRetirar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdRetirarActionPerformed(evt);
+            }
+        });
         jPanel3.add(cmdRetirar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 70, -1));
 
         cmdActualizar.setText("Actualizar saldo");
@@ -157,6 +162,8 @@ public class Principal extends javax.swing.JFrame {
                         resultado = c.mostrar();
                 resuls = "El numero de la cuenta es: " + cuenta + "\n"+ "El numero de identificacion del cliente es: " + id + "\n" + "El saldo actual es: " + ingreso+" \n"+ "El interes anual es de: " + interes + "%";
                 txtArea.setText(resuls);
+                txtSaldo.setText(""+ingreso);
+                    
     }//GEN-LAST:event_cmdIngresarActionPerformed
 
     private void cmdSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSiguienteActionPerformed
@@ -179,9 +186,32 @@ public class Principal extends javax.swing.JFrame {
         }else{
         cmdActualizar.setEnabled(true);
         cmdIngresar.setEnabled(true);
-        cmdBorrar.setEnabled(true);
+        cmdRetirar.setEnabled(true);
         }
     }//GEN-LAST:event_cmdSiguienteActionPerformed
+
+    private void cmdRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRetirarActionPerformed
+        Cuenta c,resultado; 
+        String resuls;
+        int cuenta,id;
+        double retiro=0, retirado=0,saldo,interes;
+         cuenta = Integer.parseInt(txtCuenta.getText());
+        id = Integer.parseInt(txtId.getText());
+        saldo = Double.parseDouble(txtSaldo.getText());
+        interes = Double.parseDouble(txtInteres.getText());
+        
+        c = new Cuenta(cuenta, id, saldo, interes);
+         retiro = Double.parseDouble(JOptionPane.showInputDialog(this, "Digite dinero a retirar"));
+         if(retiro>saldo){
+             JOptionPane.showMessageDialog(this,"Saldo insuficiente, no se puede hacer el retiro","error",JOptionPane.ERROR_MESSAGE);
+         }               
+         retirado = c.retirar(retiro);
+                        resultado = c.mostrar();
+                resuls = "El numero de la cuenta es: " + cuenta + "\n"+ "El numero de identificacion del cliente es: " + id + "\n" + "El saldo actual es: " + retirado+" \n"+ "El interes anual es de: " + interes + "%";
+                txtArea.setText(resuls);
+                txtSaldo.setText(""+retirado);
+                txtSaldo.setEditable(rootPaneCheckingEnabled);
+    }//GEN-LAST:event_cmdRetirarActionPerformed
 
     /**
      * @param args the command line arguments
