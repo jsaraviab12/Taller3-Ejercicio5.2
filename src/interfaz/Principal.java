@@ -53,19 +53,45 @@ public class Principal extends javax.swing.JFrame {
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtArea = new javax.swing.JTextArea();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("jLabel1");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Vivaldi", 0, 36)); // NOI18N
+        jLabel1.setText("Saravia's");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, -1, -1));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Cuenta"));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtId.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIdKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 150, -1));
+
+        txtSaldo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtSaldoKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 150, -1));
+
+        txtInteres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtInteresKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 80, -1));
+
+        txtCuenta.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCuentaKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 150, -1));
 
         jLabel2.setText("Identificación del usuario");
@@ -105,9 +131,19 @@ public class Principal extends javax.swing.JFrame {
         jPanel3.add(cmdRetirar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 70, -1));
 
         cmdActualizar.setText("Actualizar saldo");
+        cmdActualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdActualizarActionPerformed(evt);
+            }
+        });
         jPanel3.add(cmdActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
 
         cmdBorrar.setText("Borrar");
+        cmdBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdBorrarActionPerformed(evt);
+            }
+        });
         jPanel3.add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 80, -1));
 
         cmdSiguiente.setText("Siguiente");
@@ -123,6 +159,7 @@ public class Principal extends javax.swing.JFrame {
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Informacion"));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        txtArea.setEditable(false);
         txtArea.setColumns(20);
         txtArea.setRows(5);
         jScrollPane1.setViewportView(txtArea);
@@ -130,6 +167,10 @@ public class Principal extends javax.swing.JFrame {
         jPanel4.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(38, 36, 520, -1));
 
         jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 280, 590, 150));
+
+        jLabel7.setFont(new java.awt.Font("Trajan Pro", 0, 18)); // NOI18N
+        jLabel7.setText("Bank");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 50, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -185,6 +226,7 @@ public class Principal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Digite Interes Anual", "error", JOptionPane.ERROR_MESSAGE);
             txtInteres.requestFocusInWindow();
         }else{
+            
         cmdActualizar.setEnabled(true);
         cmdIngresar.setEnabled(true);
         cmdRetirar.setEnabled(true);
@@ -217,6 +259,91 @@ public class Principal extends javax.swing.JFrame {
                 txtSaldo.setText(""+retirado);
                 
     }//GEN-LAST:event_cmdRetirarActionPerformed
+
+    private void cmdActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdActualizarActionPerformed
+        Cuenta c;
+        String resuls;
+        int cuenta,id;
+        double saldo,interes,actualizado;
+        cuenta = Integer.parseInt(txtCuenta.getText());
+        id = Integer.parseInt(txtId.getText());
+        saldo = Double.parseDouble(txtSaldo.getText());
+        interes = Double.parseDouble(txtInteres.getText());
+        c = new Cuenta(cuenta, id, saldo, interes);
+        actualizado = c.actualizar();
+                txtSaldo.setText("" + actualizado);
+                JOptionPane.showMessageDialog(this, "Saldo actualizado correctamente");
+                resuls = "El numero de la cuenta es: " + cuenta + "\n"+ "El numero de identificacion del cliente es: " + id + "\n" + "El saldo actual es: " + actualizado+" \n"+ "El interes anual es de: " + interes + "%";
+                txtArea.setText(resuls);
+    }//GEN-LAST:event_cmdActualizarActionPerformed
+
+    private void cmdBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBorrarActionPerformed
+        cmdActualizar.setEnabled(false);
+        cmdIngresar.setEnabled(false);
+        cmdRetirar.setEnabled(false);
+        txtSaldo.setEditable(true);
+        txtCuenta.setEditable(true);
+        txtId.setEditable(true);
+        txtInteres.setEditable(true);
+        txtArea.setText("");
+        txtCuenta.setText("");
+        txtCuenta.requestFocusInWindow();
+        txtId.setText("");
+        txtSaldo.setText("");
+        txtInteres.setText("");
+    }//GEN-LAST:event_cmdBorrarActionPerformed
+
+    private void txtCuentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCuentaKeyTyped
+         char c=evt.getKeyChar();
+             
+         
+          if(!Character.isDigit(evt.getKeyChar())) { 
+              getToolkit().beep(); 
+               
+              evt.consume(); 
+          }
+    }//GEN-LAST:event_txtCuentaKeyTyped
+
+    private void txtIdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIdKeyTyped
+      char c=evt.getKeyChar();
+             
+         
+          if(!Character.isDigit(evt.getKeyChar())) { 
+              getToolkit().beep(); 
+               
+              evt.consume(); 
+          }
+    }//GEN-LAST:event_txtIdKeyTyped
+
+    private void txtSaldoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSaldoKeyTyped
+       char c = evt.getKeyChar();
+
+        if ((!Character.isDigit(c)) && (evt.getKeyChar() != '.')) {
+            getToolkit().beep();
+            evt.consume();
+
+        }
+        if (evt.getKeyChar() == '.' && txtSaldo.getText().contains(".")) {
+            getToolkit().beep();
+            evt.consume();
+
+        }
+    }//GEN-LAST:event_txtSaldoKeyTyped
+
+    private void txtInteresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInteresKeyTyped
+       char c = evt.getKeyChar();
+
+        if ((!Character.isDigit(c)) && (evt.getKeyChar() != '.')) {
+            getToolkit().beep();
+            evt.consume();
+
+        }
+        if (evt.getKeyChar() == '.' && txtInteres.getText().contains(".")) {
+            getToolkit().beep();
+            evt.consume();
+
+        }
+    }//GEN-LAST:event_txtInteresKeyTyped
 
     /**
      * @param args the command line arguments
@@ -265,6 +392,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
