@@ -163,7 +163,8 @@ public class Principal extends javax.swing.JFrame {
                 resuls = "El numero de la cuenta es: " + cuenta + "\n"+ "El numero de identificacion del cliente es: " + id + "\n" + "El saldo actual es: " + ingreso+" \n"+ "El interes anual es de: " + interes + "%";
                 txtArea.setText(resuls);
                 txtSaldo.setText(""+ingreso);
-                    
+               
+                  
     }//GEN-LAST:event_cmdIngresarActionPerformed
 
     private void cmdSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdSiguienteActionPerformed
@@ -187,6 +188,10 @@ public class Principal extends javax.swing.JFrame {
         cmdActualizar.setEnabled(true);
         cmdIngresar.setEnabled(true);
         cmdRetirar.setEnabled(true);
+        txtSaldo.setEditable(false);
+        txtCuenta.setEditable(false);
+        txtId.setEditable(false);
+        txtInteres.setEditable(false);
         }
     }//GEN-LAST:event_cmdSiguienteActionPerformed
 
@@ -210,7 +215,7 @@ public class Principal extends javax.swing.JFrame {
                 resuls = "El numero de la cuenta es: " + cuenta + "\n"+ "El numero de identificacion del cliente es: " + id + "\n" + "El saldo actual es: " + retirado+" \n"+ "El interes anual es de: " + interes + "%";
                 txtArea.setText(resuls);
                 txtSaldo.setText(""+retirado);
-                txtSaldo.setEditable(rootPaneCheckingEnabled);
+                
     }//GEN-LAST:event_cmdRetirarActionPerformed
 
     /**
