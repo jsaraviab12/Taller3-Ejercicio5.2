@@ -21,6 +21,7 @@ public class Principal extends javax.swing.JFrame {
         cmdActualizar.setEnabled(false);
         cmdIngresar.setEnabled(false);
         cmdRetirar.setEnabled(false);
+        cmdMostrar.setEnabled(false);
     }
 
     /**
@@ -37,19 +38,17 @@ public class Principal extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         txtId = new javax.swing.JTextField();
         txtSaldo = new javax.swing.JTextField();
-        txtInteres = new javax.swing.JTextField();
         txtCuenta = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         cmdIngresar = new javax.swing.JButton();
         cmdRetirar = new javax.swing.JButton();
         cmdActualizar = new javax.swing.JButton();
         cmdBorrar = new javax.swing.JButton();
         cmdSiguiente = new javax.swing.JButton();
+        cmdMostrar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtArea = new javax.swing.JTextArea();
@@ -71,21 +70,14 @@ public class Principal extends javax.swing.JFrame {
                 txtIdKeyTyped(evt);
             }
         });
-        jPanel2.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, 150, -1));
+        jPanel2.add(txtId, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 150, -1));
 
         txtSaldo.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 txtSaldoKeyTyped(evt);
             }
         });
-        jPanel2.add(txtSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 150, -1));
-
-        txtInteres.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtInteresKeyTyped(evt);
-            }
-        });
-        jPanel2.add(txtInteres, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 120, 80, -1));
+        jPanel2.add(txtSaldo, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 150, -1));
 
         txtCuenta.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -95,19 +87,13 @@ public class Principal extends javax.swing.JFrame {
         jPanel2.add(txtCuenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 30, 150, -1));
 
         jLabel2.setText("Identificación del usuario");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, -1, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
-        jLabel3.setText("Saldo Actual");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, -1, -1));
-
-        jLabel4.setText("Interes anual");
-        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+        jLabel3.setText("Saldo iniciall");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
 
         jLabel5.setText("Numero de cuenta");
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, -1, -1));
-
-        jLabel6.setText("%");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 120, -1, -1));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, 310, 170));
 
@@ -144,7 +130,7 @@ public class Principal extends javax.swing.JFrame {
                 cmdBorrarActionPerformed(evt);
             }
         });
-        jPanel3.add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 130, 80, -1));
+        jPanel3.add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 80, -1));
 
         cmdSiguiente.setText("Siguiente");
         cmdSiguiente.addActionListener(new java.awt.event.ActionListener() {
@@ -153,6 +139,14 @@ public class Principal extends javax.swing.JFrame {
             }
         });
         jPanel3.add(cmdSiguiente, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, -1, -1));
+
+        cmdMostrar.setText("Mostrar");
+        cmdMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMostrarActionPerformed(evt);
+            }
+        });
+        jPanel3.add(cmdMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 250, 170));
 
@@ -188,22 +182,20 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cmdIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdIngresarActionPerformed
-        Cuenta c,resultado; 
-        String resuls;
+        Cuenta c;
         int cuenta,id;
-        double ingresos=0, ingreso=0,saldo,interes;
+        double ingresos,saldo,saldonuevo;
+        
          cuenta = Integer.parseInt(txtCuenta.getText());
         id = Integer.parseInt(txtId.getText());
         saldo = Double.parseDouble(txtSaldo.getText());
-        interes = Double.parseDouble(txtInteres.getText());
-        
-        c = new Cuenta(cuenta, id, saldo, interes);
+        c = new Cuenta(cuenta, id, saldo);
          ingresos = Double.parseDouble(JOptionPane.showInputDialog(this, "Dinero a ingresar en la cuenta"));
-                        ingreso = c.ingres(ingresos);
-                        resultado = c.mostrar();
-                resuls = "El numero de la cuenta es: " + cuenta + "\n"+ "El numero de identificacion del cliente es: " + id + "\n" + "El saldo actual es: " + ingreso+" \n"+ "El interes anual es de: " + interes + "%";
-                txtArea.setText(resuls);
-                txtSaldo.setText(""+ingreso);
+                        c.ingresar(ingresos);
+                    txtSaldo.setText(c.renovar());     
+                txtArea.setText(c.mostrar());
+                
+                
                
                   
     }//GEN-LAST:event_cmdIngresarActionPerformed
@@ -220,61 +212,57 @@ public class Principal extends javax.swing.JFrame {
             txtId.requestFocusInWindow();
             txtId.selectAll();
         } else if (txtSaldo.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Digite Saldo Actual de la cuenta", "error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Digite Saldo Actual de la cuenta, si la cuenta no tiene saldo digite 0 por favor", "error", JOptionPane.ERROR_MESSAGE);
             txtSaldo.requestFocusInWindow();
-        } else if (txtInteres.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Digite Interes Anual", "error", JOptionPane.ERROR_MESSAGE);
-            txtInteres.requestFocusInWindow();
+     
         }else{
             
         cmdActualizar.setEnabled(true);
         cmdIngresar.setEnabled(true);
         cmdRetirar.setEnabled(true);
+        cmdMostrar.setEnabled(true);
         txtSaldo.setEditable(false);
         txtCuenta.setEditable(false);
         txtId.setEditable(false);
-        txtInteres.setEditable(false);
+        
         }
     }//GEN-LAST:event_cmdSiguienteActionPerformed
 
     private void cmdRetirarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdRetirarActionPerformed
-        Cuenta c,resultado; 
-        String resuls;
+        Cuenta c; 
         int cuenta,id;
-        double retiro=0, retirado=0,saldo,interes;
+        double retiro,saldo;
          cuenta = Integer.parseInt(txtCuenta.getText());
         id = Integer.parseInt(txtId.getText());
         saldo = Double.parseDouble(txtSaldo.getText());
-        interes = Double.parseDouble(txtInteres.getText());
         
-        c = new Cuenta(cuenta, id, saldo, interes);
+        
+        c = new Cuenta(cuenta, id, saldo);
          retiro = Double.parseDouble(JOptionPane.showInputDialog(this, "Digite dinero a retirar"));
          if(retiro>saldo){
              JOptionPane.showMessageDialog(this,"Saldo insuficiente, no se puede hacer el retiro","error",JOptionPane.ERROR_MESSAGE);
-         }               
-         retirado = c.retirar(retiro);
-                        resultado = c.mostrar();
-                resuls = "El numero de la cuenta es: " + cuenta + "\n"+ "El numero de identificacion del cliente es: " + id + "\n" + "El saldo actual es: " + retirado+" \n"+ "El interes anual es de: " + interes + "%";
-                txtArea.setText(resuls);
-                txtSaldo.setText(""+retirado);
-                
+         }else{               
+          c.retirar(retiro);
+                         
+                txtSaldo.setText(c.renovar()); 
+                txtArea.setText(c.mostrar ());
+         } 
     }//GEN-LAST:event_cmdRetirarActionPerformed
 
     private void cmdActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdActualizarActionPerformed
         Cuenta c;
-        String resuls;
+        String res;
         int cuenta,id;
         double saldo,interes,actualizado;
         cuenta = Integer.parseInt(txtCuenta.getText());
         id = Integer.parseInt(txtId.getText());
         saldo = Double.parseDouble(txtSaldo.getText());
-        interes = Double.parseDouble(txtInteres.getText());
-        c = new Cuenta(cuenta, id, saldo, interes);
-        actualizado = c.actualizar();
-                txtSaldo.setText("" + actualizado);
+        
+        c = new Cuenta(cuenta, id, saldo);
                 JOptionPane.showMessageDialog(this, "Saldo actualizado correctamente");
-                resuls = "El numero de la cuenta es: " + cuenta + "\n"+ "El numero de identificacion del cliente es: " + id + "\n" + "El saldo actual es: " + actualizado+" \n"+ "El interes anual es de: " + interes + "%";
-                txtArea.setText(resuls);
+                c.acturalizar(12);
+                txtSaldo.setText(c.renovar()); 
+                txtArea.setText(c.mostrar());
     }//GEN-LAST:event_cmdActualizarActionPerformed
 
     private void cmdBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBorrarActionPerformed
@@ -284,13 +272,13 @@ public class Principal extends javax.swing.JFrame {
         txtSaldo.setEditable(true);
         txtCuenta.setEditable(true);
         txtId.setEditable(true);
-        txtInteres.setEditable(true);
+        
         txtArea.setText("");
         txtCuenta.setText("");
         txtCuenta.requestFocusInWindow();
         txtId.setText("");
         txtSaldo.setText("");
-        txtInteres.setText("");
+        
     }//GEN-LAST:event_cmdBorrarActionPerformed
 
     private void txtCuentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCuentaKeyTyped
@@ -330,20 +318,19 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtSaldoKeyTyped
 
-    private void txtInteresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInteresKeyTyped
-       char c = evt.getKeyChar();
-
-        if ((!Character.isDigit(c)) && (evt.getKeyChar() != '.')) {
-            getToolkit().beep();
-            evt.consume();
-
-        }
-        if (evt.getKeyChar() == '.' && txtInteres.getText().contains(".")) {
-            getToolkit().beep();
-            evt.consume();
-
-        }
-    }//GEN-LAST:event_txtInteresKeyTyped
+    private void cmdMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMostrarActionPerformed
+        Cuenta c; 
+         int cuenta,id;
+        double saldo,interes,actualizado;
+        cuenta = Integer.parseInt(txtCuenta.getText());
+        id = Integer.parseInt(txtId.getText());
+        saldo = Double.parseDouble(txtSaldo.getText()); 
+        c = new Cuenta(cuenta, id, saldo);
+         txtSaldo.setText(c.renovar()); 
+                
+                txtArea.setText(c.mostrar());
+         
+    }//GEN-LAST:event_cmdMostrarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -384,14 +371,13 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton cmdActualizar;
     private javax.swing.JButton cmdBorrar;
     private javax.swing.JButton cmdIngresar;
+    private javax.swing.JButton cmdMostrar;
     private javax.swing.JButton cmdRetirar;
     private javax.swing.JButton cmdSiguiente;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -401,7 +387,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextArea txtArea;
     private javax.swing.JTextField txtCuenta;
     private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtInteres;
     private javax.swing.JTextField txtSaldo;
     // End of variables declaration//GEN-END:variables
 }

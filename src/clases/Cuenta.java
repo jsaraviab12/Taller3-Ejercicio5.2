@@ -15,14 +15,21 @@ public class Cuenta {
     int identi;
     int ncuenta;
    double saldo;
-    double interes;
-   public Cuenta(int  identi,int ncuenta, double saldo, double interes){
+    
+   public Cuenta(int  identi,int ncuenta, double saldo){
        this.identi = identi;
        this.ncuenta =ncuenta;
        this.saldo = saldo;
-       this.interes= interes;
+       
       
-   } 
+   }
+
+    public Cuenta(int identi, int ncuenta) {
+        this.identi = identi;
+        this.ncuenta = ncuenta;
+        this.saldo = 0;
+    }
+   
 
     public int getIdenti() {
         return identi;
@@ -48,57 +55,36 @@ public class Cuenta {
         this.saldo = saldo;
     }
 
-    public double getInteres() {
-        return interes;
-    }
-
-    public void setInteres(int interes) {
-        this.interes = interes;
-    }
-   public double ingresar (long ingreso){
-       double nuevosaldo=0;
-       nuevosaldo=this.saldo+ingreso;
-       return nuevosaldo;
+    
+   public void ingresar (double ingreso){
+       double aux;
+       aux=this.getSaldo ()+ingreso;
+       this.setSaldo(aux);
    }
-   public double actualizar(){
-   double intediario, saldonuevo;
-   intediario=this.interes/365;
-   saldonuevo=this.saldo+(intediario*this.saldo)/100;
-   return saldonuevo;
+   public void acturalizar(double ian){
+        double aux, aux2;
+        aux = this.getSaldo()*(ian /365);
+        aux2 = this.getSaldo() + aux;
+        this.setSaldo(aux2);
    } 
-   public double retirar(double retiro  ){
-   double res;
-   
-   if(this.saldo<retiro){
-   res = saldo;
-       
-   }else{
-  
-   res =this.saldo=this.saldo-retiro; ;   
+   public void retirar(double retiro  ){
+   double aux;
+       aux = this.getSaldo() - retiro;
+       this.setSaldo(aux);
    }
-   return res;
-   } 
-   public double ingres(double ingresa){
-       double nuevo,op1;
-        if (ingresa <= 0) {
-            nuevo = 0;
-        } else {
-            op1 = this.saldo + ingresa;
-            nuevo = op1;
-        }
-        return nuevo;
-   }
-     public Cuenta mostrar() {
-        Cuenta c;
-        int identificacion,numerocuenta;
-        double saldon, interes;
-        numerocuenta = this.ncuenta;
-        identificacion = this.identi;
-        saldon = this.saldo;
-        interes = this.interes;
-        c = new Cuenta(numerocuenta, identificacion,  interes, saldon);
-        return c;
+     public String mostrar() {
+        String aux;
+       aux = "No. de la cuenta: "+this.getNcuenta()+"\n"
+           + "No. de Identificación: "+this.getIdenti()+"\n"
+           + "Saldo Actual: "+this.getSaldo()+"\n"
+               +"El interes agregado es de 12% del saldo acutal anualmente";
+        return aux;
+    } public String renovar(){
+      String aux;
+      aux=""+this.getSaldo();
+      return aux;
     }
+    
    
    }
            
