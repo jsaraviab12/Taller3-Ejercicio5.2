@@ -22,6 +22,8 @@ public class Principal extends javax.swing.JFrame {
         cmdIngresar.setEnabled(false);
         cmdRetirar.setEnabled(false);
         cmdMostrar.setEnabled(false);
+        txtRetirar.setEditable(false);
+        txtIngresar.setEditable(false);
     }
 
     /**
@@ -49,6 +51,8 @@ public class Principal extends javax.swing.JFrame {
         cmdBorrar = new javax.swing.JButton();
         cmdSiguiente = new javax.swing.JButton();
         cmdMostrar = new javax.swing.JButton();
+        txtIngresar = new javax.swing.JTextField();
+        txtRetirar = new javax.swing.JTextField();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtArea = new javax.swing.JTextArea();
@@ -89,7 +93,7 @@ public class Principal extends javax.swing.JFrame {
         jLabel2.setText("Identificación del usuario");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, -1, -1));
 
-        jLabel3.setText("Saldo iniciall");
+        jLabel3.setText("Saldo inicial");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 130, -1, -1));
 
         jLabel5.setText("Numero de cuenta");
@@ -106,7 +110,7 @@ public class Principal extends javax.swing.JFrame {
                 cmdIngresarActionPerformed(evt);
             }
         });
-        jPanel3.add(cmdIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
+        jPanel3.add(cmdIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, -1, -1));
 
         cmdRetirar.setText("Retirar");
         cmdRetirar.addActionListener(new java.awt.event.ActionListener() {
@@ -114,7 +118,7 @@ public class Principal extends javax.swing.JFrame {
                 cmdRetirarActionPerformed(evt);
             }
         });
-        jPanel3.add(cmdRetirar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 60, 70, -1));
+        jPanel3.add(cmdRetirar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 80, 70, -1));
 
         cmdActualizar.setText("Actualizar saldo");
         cmdActualizar.addActionListener(new java.awt.event.ActionListener() {
@@ -122,7 +126,7 @@ public class Principal extends javax.swing.JFrame {
                 cmdActualizarActionPerformed(evt);
             }
         });
-        jPanel3.add(cmdActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
+        jPanel3.add(cmdActualizar, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 120, -1, -1));
 
         cmdBorrar.setText("Borrar");
         cmdBorrar.addActionListener(new java.awt.event.ActionListener() {
@@ -130,7 +134,7 @@ public class Principal extends javax.swing.JFrame {
                 cmdBorrarActionPerformed(evt);
             }
         });
-        jPanel3.add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 130, 80, -1));
+        jPanel3.add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 80, -1));
 
         cmdSiguiente.setText("Siguiente");
         cmdSiguiente.addActionListener(new java.awt.event.ActionListener() {
@@ -146,9 +150,23 @@ public class Principal extends javax.swing.JFrame {
                 cmdMostrarActionPerformed(evt);
             }
         });
-        jPanel3.add(cmdMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+        jPanel3.add(cmdMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, -1, -1));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 250, 170));
+        txtIngresar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtIngresarKeyTyped(evt);
+            }
+        });
+        jPanel3.add(txtIngresar, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 90, -1));
+
+        txtRetirar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtRetirarKeyTyped(evt);
+            }
+        });
+        jPanel3.add(txtRetirar, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 100, -1));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 90, 250, 190));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Informacion"));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -185,18 +203,22 @@ public class Principal extends javax.swing.JFrame {
         Cuenta c;
         int cuenta,id;
         double ingresos,saldo,saldonuevo;
-        
+       if (txtIngresar.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite la cantidad a agregar", "error", JOptionPane.ERROR_MESSAGE);
+            txtIngresar.requestFocusInWindow();
+        }else{ 
          cuenta = Integer.parseInt(txtCuenta.getText());
         id = Integer.parseInt(txtId.getText());
         saldo = Double.parseDouble(txtSaldo.getText());
+        ingresos=Double.parseDouble(txtIngresar.getText());
         c = new Cuenta(cuenta, id, saldo);
-         ingresos = Double.parseDouble(JOptionPane.showInputDialog(this, "Dinero a ingresar en la cuenta"));
+         
                         c.ingresar(ingresos);
                     txtSaldo.setText(c.renovar());     
                 txtArea.setText(c.mostrar());
                 
                 
-               
+       }
                   
     }//GEN-LAST:event_cmdIngresarActionPerformed
 
@@ -224,7 +246,8 @@ public class Principal extends javax.swing.JFrame {
         txtSaldo.setEditable(false);
         txtCuenta.setEditable(false);
         txtId.setEditable(false);
-        
+        txtRetirar.setEditable(true);
+        txtIngresar.setEditable(true);
         }
     }//GEN-LAST:event_cmdSiguienteActionPerformed
 
@@ -232,21 +255,26 @@ public class Principal extends javax.swing.JFrame {
         Cuenta c; 
         int cuenta,id;
         double retiro,saldo;
-         cuenta = Integer.parseInt(txtCuenta.getText());
+        if (txtRetirar.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Digite la cantidad a retirar", "error", JOptionPane.ERROR_MESSAGE);
+            txtRetirar.requestFocusInWindow();
+        }else{  
+        cuenta = Integer.parseInt(txtCuenta.getText());
         id = Integer.parseInt(txtId.getText());
         saldo = Double.parseDouble(txtSaldo.getText());
-        
+        retiro=Double.parseDouble(txtRetirar.getText());
         
         c = new Cuenta(cuenta, id, saldo);
-         retiro = Double.parseDouble(JOptionPane.showInputDialog(this, "Digite dinero a retirar"));
+        
          if(retiro>saldo){
              JOptionPane.showMessageDialog(this,"Saldo insuficiente, no se puede hacer el retiro","error",JOptionPane.ERROR_MESSAGE);
          }else{               
           c.retirar(retiro);
-                         
+              }            
                 txtSaldo.setText(c.renovar()); 
                 txtArea.setText(c.mostrar ());
-         } 
+         
+        }
     }//GEN-LAST:event_cmdRetirarActionPerformed
 
     private void cmdActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdActualizarActionPerformed
@@ -272,13 +300,15 @@ public class Principal extends javax.swing.JFrame {
         txtSaldo.setEditable(true);
         txtCuenta.setEditable(true);
         txtId.setEditable(true);
-        
+        txtRetirar.setEditable(false);
+        txtIngresar.setEditable(false);
         txtArea.setText("");
         txtCuenta.setText("");
         txtCuenta.requestFocusInWindow();
         txtId.setText("");
         txtSaldo.setText("");
-        
+        txtIngresar.setText("");
+        txtRetirar.setText("");
     }//GEN-LAST:event_cmdBorrarActionPerformed
 
     private void txtCuentaKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCuentaKeyTyped
@@ -331,6 +361,36 @@ public class Principal extends javax.swing.JFrame {
                 txtArea.setText(c.mostrar());
          
     }//GEN-LAST:event_cmdMostrarActionPerformed
+
+    private void txtIngresarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtIngresarKeyTyped
+        char c = evt.getKeyChar();
+
+        if ((!Character.isDigit(c)) && (evt.getKeyChar() != '.')) {
+            getToolkit().beep();
+            evt.consume();
+
+        }
+        if (evt.getKeyChar() == '.' && txtSaldo.getText().contains(".")) {
+            getToolkit().beep();
+            evt.consume();
+
+        }
+    }//GEN-LAST:event_txtIngresarKeyTyped
+
+    private void txtRetirarKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtRetirarKeyTyped
+        char c = evt.getKeyChar();
+
+        if ((!Character.isDigit(c)) && (evt.getKeyChar() != '.')) {
+            getToolkit().beep();
+            evt.consume();
+
+        }
+        if (evt.getKeyChar() == '.' && txtSaldo.getText().contains(".")) {
+            getToolkit().beep();
+            evt.consume();
+
+        }
+    }//GEN-LAST:event_txtRetirarKeyTyped
 
     /**
      * @param args the command line arguments
@@ -387,6 +447,8 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JTextArea txtArea;
     private javax.swing.JTextField txtCuenta;
     private javax.swing.JTextField txtId;
+    private javax.swing.JTextField txtIngresar;
+    private javax.swing.JTextField txtRetirar;
     private javax.swing.JTextField txtSaldo;
     // End of variables declaration//GEN-END:variables
 }
